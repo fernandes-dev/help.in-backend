@@ -5,9 +5,16 @@ class UserSchema extends Schema {
   up() {
     this.create('users', (table) => {
       table.increments();
-      table.string('username', 80).notNullable().unique();
-      table.string('email', 254).notNullable().unique();
-      table.string('password', 60).notNullable();
+      table.string('name').notNullable();
+      table.enu('type', ['Física', 'Jurídica']).defaultTo('Física');
+      table.string('company_name');
+      table.string('document').unique();
+      table.enu('class', ['Usuario', 'Empresa']).defaultTo('Usuario');
+      table.string('email').notNullable().unique();
+      table.string('password').notNullable();
+      table.string('phone').unique().notNullable();
+      table.date('birthday').notNullable();
+      table.enu('status', ['Ativo', 'Inativo']).defaultTo('Ativo');
       table.timestamps();
     });
   }
